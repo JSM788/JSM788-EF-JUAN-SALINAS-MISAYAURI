@@ -1,0 +1,8 @@
+CREATE DATABASE IF NOT EXISTS vuelos;
+USE vuelos;
+
+INSERT INTO tb_ciudad (codigo_postal, nombre) VALUES 
+('CP001', 'Lima'),
+('CP002', 'Arequipa'),
+('CP003', 'Cusco'),
+('CP004', 'Trujillo');
