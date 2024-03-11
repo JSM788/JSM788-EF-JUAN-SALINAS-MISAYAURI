@@ -2,23 +2,17 @@ package org.cibertec.edu.pe.model;
 
 public class Ticket {
 
-    private String ciudadOrigen;
-
-    private String ciudadDestino;
-
+    private Ciudad ciudadOrigen;  // Cambiado a Ciudad en lugar de String
+    private Ciudad ciudadDestino; // Cambiado a Ciudad en lugar de String
     private String fechaSalida;
-
     private String fechaRetorno;
-
     private String nombreComprador;
-
     private int cantidad;
-
     private Double subTotal;
 
-    public Ticket(){}
+    public Ticket() {}
 
-    public Ticket(String ciudadOrigen, String ciudadDestino, String fechaSalida, String fechaRetorno, String nombreComprador, int cantidad, Double subTotal) {
+    public Ticket(Ciudad ciudadOrigen, Ciudad ciudadDestino, String fechaSalida, String fechaRetorno, String nombreComprador, int cantidad, Double subTotal) {
         this.ciudadOrigen = ciudadOrigen;
         this.ciudadDestino = ciudadDestino;
         this.fechaSalida = fechaSalida;
@@ -28,19 +22,19 @@ public class Ticket {
         this.subTotal = subTotal;
     }
 
-    public String getCiudadOrigen() {
+    public Ciudad getCiudadOrigen() {
         return ciudadOrigen;
     }
 
-    public void setCiudadOrigen(String ciudadOrigen) {
+    public void setCiudadOrigen(Ciudad ciudadOrigen) {
         this.ciudadOrigen = ciudadOrigen;
     }
 
-    public String getCiudadDestino() {
+    public Ciudad getCiudadDestino() {
         return ciudadDestino;
     }
 
-    public void setCiudadDestino(String ciudadDestino) {
+    public void setCiudadDestino(Ciudad ciudadDestino) {
         this.ciudadDestino = ciudadDestino;
     }
 

@@ -109,9 +109,10 @@ public class ViajesController {
             for (Ticket ticket : tickets) {
                 DetalleVenta ventaDetalle = new DetalleVenta();
 
-                Ciudad ciudadDestino = ciudadRepository.findById(ticket.getCiudadDestino()).get();
+                Ciudad ciudadDestino = ciudadRepository.findById(ticket.getCiudadDestino().getCodigoPostal()).get();
                 ventaDetalle.setCiudadDestino(ciudadDestino);
-                Ciudad ciudadOrigen = ciudadRepository.findById(ticket.getCiudadOrigen()).get();
+
+                Ciudad ciudadOrigen = ciudadRepository.findById(ticket.getCiudadOrigen().getCodigoPostal()).get();
                 ventaDetalle.setCiudadOrigen(ciudadOrigen);
 
                 ventaDetalle.setCantidad(ticket.getCantidad());

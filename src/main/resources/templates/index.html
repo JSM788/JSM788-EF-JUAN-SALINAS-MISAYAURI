@@ -2,77 +2,87 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/index.css">
-    <title>Compra de Boletos - Viva Air</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/css/index.css">
+	<title>Compra de Boletos - Viva Air</title>
 </head>
 
 <body>
-    <div id="panel">
-        <div id="titulo"><span style="color: red">Viva</span> <span style="color: #0b7fa6">Air</span></div>
-        <h3 style="text-align: center">Venta de Tickets</h3>
-        <div class="formContainer">
-            <form th:action="@{/agregar-ticket}" th:object="${ticket}" method="post" id="formulario">
-                <label for="ciudadOrigen">Ciudad de Origen</label>
-                <select th:field="*{ciudadOrigen}" id="ciudadOrigen" name="ciudadOrigen">
-                    <option th:each="ciudad : ${ciudades}" th:value="${ciudad.codigoPostal}" th:text="${ciudad.codigoPostal + ' - ' + ciudad.nombre}"></option>
-                </select>
+	<div id="panel">
+		<div id="titulo"><span style="color: red">Viva</span> <span style="color: #0b7fa6">Air</span></div>
+		<h3 style="text-align: center">Venta de Tickets</h3>
+		<div class="formContainer">
+			<form th:action="@{/agregar-ticket}" th:object="${ticket}" method="post" id="formulario">
+				<label for="ciudadOrigen">Ciudad de Origen</label>
+				<select th:field="*{ciudadOrigen}" id="ciudadOrigen" name="ciudadOrigen">
+					<option th:each="ciudad : ${ciudades}" th:value="${ciudad.codigoPostal}" th:text="${ciudad.nombre}">
+					</option>
+				</select>
 
-                <label for="ciudadDestino">Ciudad de Destino</label>
-                <select th:field="*{ciudadDestino}" id="ciudadDestino" name="ciudadDestino">
-                    <option th:each="ciudad : ${ciudades}" th:value="${ciudad.codigoPostal}" th:text="${ciudad.codigoPostal + ' - ' + ciudad.nombre}"></option>
-                </select>
+				<label for="ciudadDestino">Ciudad de Destino</label>
+				<select th:field="*{ciudadDestino}" id="ciudadDestino" name="ciudadDestino">
+					<option th:each="ciudad : ${ciudades}" th:value="${ciudad.codigoPostal}" th:text="${ciudad.nombre}">
+					</option>
+				</select>
 
-                <label for="fechaSalida">Fecha de Salida</label>
-                <input th:field="*{fechaSalida}" type="date">
 
-                <label for="fechaRetorno">Fecha de Retorno</label>
-                <input th:field="*{fechaRetorno}" type="date">
 
-                <label for="nombreComprador">Nombre Comprador</label>
-                <input th:field="*{nombreComprador}" type="text">
+				<label for="fechaSalida">Fecha de Salida</label>
+				<input th:field="*{fechaSalida}" type="date">
 
-                <label for="cantidad">Cantidad</label>
-                <input th:field="*{cantidad}" type="number">
+				<label for="fechaRetorno">Fecha de Retorno</label>
+				<input th:field="*{fechaRetorno}" type="date">
 
-                <div class="formButtons">
-                    <button type="submit" role="button" id="botonAgregar">Agregar</button>
-                    <button type="reset" role="button" id="botonLimpiar" th:href="@{/limpiarModelo}">Limpiar</button>
-                </div>
+				<label for="nombreComprador">Nombre Comprador</label>
+				<input th:field="*{nombreComprador}" type="text">
 
-            </form>
-        </div>
+				<label for="cantidad">Cantidad</label>
+				<input th:field="*{cantidad}" type="number">
 
-        <table id="tabla">
-            <thead>
-                <tr>
-                    <th>Ciudad Origen</th>
-                    <th>Ciudad Destino</th>
-                    <th>Fecha Salida</th>
-                    <th>Fecha Retorno</th>
-                    <th>Comprador</th>
-                    <th>Cantidad</th>
-                    <th>Subtotal</th>
-                </tr>
-            </thead>
-            <tbody>
-				<tr th:each="ticketAgregado : ${ticketsAgregados}">
-				    <td th:text="${ticketAgregado.ciudadOrigen}">&nbsp;</td>
-				    <td th:text="${ticketAgregado.ciudadDestino}">&nbsp;</td>
-				    <td th:text="${ticketAgregado.fechaSalida}">&nbsp;</td>
-				    <td th:text="${ticketAgregado.fechaRetorno}">&nbsp;</td>
-				    <td th:text="${ticketAgregado.nombreComprador}">&nbsp;</td>
-				    <td th:text="${ticketAgregado.cantidad}">&nbsp;</td>
-				    <td th:text="${ticketAgregado.subTotal}">&nbsp;</td>
+				<div class="formButtons">
+					<button type="submit" role="button" id="botonAgregar">Agregar</button>
+					<button type="button" role="button" id="botonLimpiar" onclick="limpiarModelo()">Limpiar</button>
+				</div>
+
+			</form>
+		</div>
+
+		<table id="tabla">
+			<thead>
+				<tr>
+					<th>Ciudad Origen</th>
+					<th>Ciudad Destino</th>
+					<th>Fecha Salida</th>
+					<th>Fecha Retorno</th>
+					<th>Comprador</th>
+					<th>Cantidad</th>
+					<th>Subtotal</th>
 				</tr>
-            </tbody>
-        </table>
-        <div style="display: flex; justify-content: center; margin-top: 20px">
-            <a id="botonComprar" role="button" class="btn btn-danger btn-lg" th:href="@{/procesar-compra}">Comprar</a>
-        </div>
-    </div>
+			</thead>
+			<tbody>
+				<tr th:each="ticketAgregado : ${ticketsAgregados}">
+					<td th:text="${ticketAgregado.ciudadOrigen.nombre}">&nbsp;</td>
+					<td th:text="${ticketAgregado.ciudadDestino.nombre}">&nbsp;</td>
+					<td th:text="${ticketAgregado.fechaSalida}">&nbsp;</td>
+					<td th:text="${ticketAgregado.fechaRetorno}">&nbsp;</td>
+					<td th:text="${ticketAgregado.nombreComprador}">&nbsp;</td>
+					<td th:text="${ticketAgregado.cantidad}">&nbsp;</td>
+					<td th:text="${ticketAgregado.subTotal}">&nbsp;</td>
+				</tr>
+
+			</tbody>
+		</table>
+		<div style="display: flex; justify-content: center; margin-top: 20px">
+			<a id="botonComprar" role="button" class="btn btn-danger btn-lg" th:href="@{/procesar-compra}">Comprar</a>
+		</div>
+	</div>
 
 </body>
+<script>
+	function limpiarModelo() {
+		window.location.href = '/limpiarModelo';
+	}
+</script>
 
 </html>
